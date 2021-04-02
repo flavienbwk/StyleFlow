@@ -7,6 +7,20 @@ services:
     command: python3.7 /usr/app/main.py
     volumes: 
       - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./stylegan:/usr/app/stylegan
+    environment:
+      DISPLAY: $DISPLAY
+      QT_X11_NO_MITSHM: 1
+      QT_DEBUG_PLUGINS: 1
+
+  web:
+    build: .
+    command: streamlit run /usr/app/web/app.py
+    volumes: 
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./stylegan:/usr/app/stylegan
+    ports:
+      - 9000:3000
     environment:
       DISPLAY: $DISPLAY
       QT_X11_NO_MITSHM: 1
